@@ -3,8 +3,20 @@
 //
 
 #include "Grid.h"
+#include "Robot.h"
 
-void Grid::printGrid(vector<vector<int>> & grid){
+Grid::Grid(){
+    // Initalise Grid vector
+    vector<vector<int>> grid;
+    Grid::intialiseGrid(grid);
+
+}
+
+Grid::~Grid() {
+    free(Grid);
+}
+
+void Grid::printGrid(vector<vector<int>> grid){
 
     for (int y = 49; y >= 0 ; y--){
       for (int x = 0; x <= 49; x++) {
@@ -29,8 +41,7 @@ void Grid::buildingGrid(vector<vector<double> > & poses,
     // const int Max_Lines = 41;
     // cycle though, vectors get first index
 
-    const double MAX_RANGE_OF_SENORS = 2.5;
-    const int GRID_WIDTH = 50;
+
     // Poses Data
     double currentGridX = 0;
     double currentGridY = 0;
@@ -40,13 +51,7 @@ void Grid::buildingGrid(vector<vector<double> > & poses,
     int x = 0;
     int y = 0;
     // initialising an empty grid.
-    for (int i = 0; i < GRID_WIDTH; i++){
-        vector<int> gridData;
-        for (int j = 0; j < GRID_WIDTH; j++ ){
-            gridData.push_back(0);
-        }
-        grid.push_back(gridData);
-    }
+
     // To Do list:
     // I need to loop though the vectors and compare the senor values to max range value if less than
     // then find out what cell index and then use to set that occupied.
@@ -67,9 +72,23 @@ void Grid::buildingGrid(vector<vector<double> > & poses,
                 x = (int)getCellIndexX(getXCoordinate(currentGridX,ranges[i][j], j * 45, currentOrientation));
             }
             if(ranges[i][j] < MAX_RANGE_OF_SENORS){
-                y = (int)getCellIndexY(getYCoordinate(currentGridY,ranges[i][j],j * 45, currentOrientation));
+               y = Robot::getY(currentGridX,i,j,currentOrientation);
             }
             grid[x][y] = 1;
         }
     }
+}
+
+// Intialising empty grid
+
+void Grid::intialiseGrid(vector<vector<int >> &grid){
+
+    for (int i = 0; i < GRID_WIDTH; i++){
+        vector<int> gridData;
+        for (int j = 0; j < GRID_WIDTH; j++ ){
+            gridData.push_back(0);
+        }
+        grid.push_back(gridData);
+    }
+
 }

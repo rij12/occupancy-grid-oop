@@ -11,9 +11,6 @@
 #include <math.h>
 #include <vector>
 
-void readPosesData(std::vector<std::vector<double>> & poses);
-void readRangeData(std::vector<std::vector<double>> & ranges);
-std::vector<std::vector<double> > poses;
-std::vector<std::vector<double> > ranges;
+
 
 #endif //OCCUPANCY_GRID_OOP_MAIN_H
