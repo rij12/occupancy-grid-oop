@@ -15,22 +15,20 @@ using std::vector;
 class Grid{
 
 public:
-    vector getGrid();
     Grid();
     ~Grid();
-
+    Grid::Grid(vector<vector<double>> poses, vector<vector<double >> ranges);
+    void printGrid();
 
 private:
-    void printGrid(std::vector<std::vector<int >>  grid);
-    void buildingGrid(std::vector<std::vector<double> > & poses,
-                      std::vector<std::vector<double>> & ranges,
+    void intialiseGrid(vector<vector<int>> &grid);
+    vector<vector<int>> grid;
+    void buildingGrid(std::vector<std::vector<double>> poses,
+                      std::vector<std::vector<double>> ranges,
                       std::vector<std::vector<int>> & grid);
     const double MAX_RANGE_OF_SENORS = 2.5;
     const int GRID_WIDTH = 50;
-    void Grid::intialiseGrid(vector<vector<int >> &grid);
-//    double x;
-//    double y;
-
+    const int DGREE_MULTIPLER = 45;
 };
 
 #endif //OCCUPANCY_GRID_OOP_GRID_H

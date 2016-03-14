@@ -10,7 +10,20 @@
 #include <stdlib.h>
 #include <math.h>
 #include <vector>
+#include <Robot.h>
+#include <Grid.h>
+using namespace std;
 
+class main{
+
+public:
+
+private:
+
+
+
+
+};
 
 
 #endif //OCCUPANCY_GRID_OOP_MAIN_H

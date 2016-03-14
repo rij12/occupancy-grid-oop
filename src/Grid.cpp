@@ -2,21 +2,24 @@
 // Created by rich on 11/03/16.
 //
 
+#include <stdlib.h>
 #include "Grid.h"
 #include "Robot.h"
 
+Grid::Grid(vector<vector<double>> poses, vector<vector<double >> ranges){
+
+    intialiseGrid(grid);
+    buildingGrid(poses,ranges,grid);
+    }
+
 Grid::Grid(){
-    // Initalise Grid vector
-    vector<vector<int>> grid;
-    Grid::intialiseGrid(grid);
+    intialiseGrid(grid);
+};
+//Grid::~Grid() {
+//    free(Grid);
+//}
 
-}
-
-Grid::~Grid() {
-    free(Grid);
-}
-
-void Grid::printGrid(vector<vector<int>> grid){
+void Grid::printGrid(){
 
     for (int y = 49; y >= 0 ; y--){
       for (int x = 0; x <= 49; x++) {
@@ -35,28 +38,18 @@ void Grid::printGrid(vector<vector<int>> grid){
 }
 
 
-void Grid::buildingGrid(vector<vector<double> > & poses,
-                         vector<vector<double> > & ranges,
-                         vector<vector<int> > & grid){
-    // const int Max_Lines = 41;
-    // cycle though, vectors get first index
-
+void Grid::buildingGrid(vector<vector<double>> poses,
+                         vector<vector<double>> ranges,
+                         vector<vector<int>> & grid){
 
     // Poses Data
     double currentGridX = 0;
     double currentGridY = 0;
     double currentOrientation = 0;
-    // Senor Data
-//  double currentSenorValue;
+
     int x = 0;
     int y = 0;
-    // initialising an empty grid.
 
-    // To Do list:
-    // I need to loop though the vectors and compare the senor values to max range value if less than
-    // then find out what cell index and then use to set that occupied.
-
-    //Iterates though Outer vectors. 0-40
     for (int i = 0; i < 40;i++){
         // Find out the Robot current location.
         currentGridX = poses[i][0];
@@ -69,19 +62,19 @@ void Grid::buildingGrid(vector<vector<double> > & poses,
                 // then I need to get the cell index and mark it.
                 what_is_range = ranges[i][j];
                 cout << "What is that: "<<what_is_range << endl;
-                x = (int)getCellIndexX(getXCoordinate(currentGridX,ranges[i][j], j * 45, currentOrientation));
+                x = (int)Robot::getCellIndexX(Robot::getXCoordinate(currentGridX,ranges[i][j], j * DGREE_MULTIPLER,currentOrientation));
             }
             if(ranges[i][j] < MAX_RANGE_OF_SENORS){
-               y = Robot::getY(currentGridX,i,j,currentOrientation);
+                y = (int)Robot::getCellIndexY(Robot::getYCoordinate(currentGridY,ranges[i][j], j * DGREE_MULTIPLER,currentOrientation));
             }
             grid[x][y] = 1;
         }
     }
 }
 
-// Intialising empty grid
+// initialising empty grid
 
-void Grid::intialiseGrid(vector<vector<int >> &grid){
+void Grid::intialiseGrid(vector<vector<int>> &grid){
 
     for (int i = 0; i < GRID_WIDTH; i++){
         vector<int> gridData;

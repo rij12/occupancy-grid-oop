@@ -3,25 +3,61 @@
 //
 
 
-#include <bits/mathcalls.h>
 #include <tgmath.h>
 #include <fstream>
+#include <stdlib.h>
 #include "Robot.h"
 
 Robot::Robot() {
-
-
-
-
+    readPosesData(poses);
+    readRangeData(ranges);
 }
 
 Robot::~Robot() {
 
-
-
-
 }
 
+static double Robot::getCellIndexX(double x){
+    return round((x / 0.2) + GRID_OFF_SET );
+}
+
+static double Robot::getCellIndexY(double y){
+    return round((y / 0.2) + GRID_OFF_SET );
+}
+
+static double Robot::getXCoordinate (double x_r, double sensors_range, double senor_alpha, double senor_beta){
+
+    double absolute_x;
+    absolute_x = x_r + sensors_range * cos(convert_to_radians(senor_alpha + senor_beta));
+    return absolute_x;
+}
+
+static double Robot::getYCoordinate(double y_r, double sensors_range, double senor_alpha, double senor_beta){
+
+    double absolute_y;
+    absolute_y = y_r + sensors_range * sin(convert_to_radians(senor_alpha + senor_beta));
+    return absolute_y;
+}
+
+static double Robot::convert_to_radians (double degrees){
+    return   degrees / RADS_TO_DEGREES;
+}
+
+const vector<vector<double>> & Robot::getPoses(){
+    return Robot::poses;
+}
+
+const vector<vector<double>> & Robot::getRanges() {
+    return Robot::ranges;
+}
+
+void Robot::setPoses(vector<vector<double>> & poses) {
+    poses = Robot::poses;
+}
+
+void Robot::setRanges(vector<vector<double>> &ranges) {
+    ranges = Robot::ranges;
+}
 
 void Robot::readRangeData(vector<vector<double> > & ranges) {
 
@@ -40,8 +76,6 @@ void Robot::readRangeData(vector<vector<double> > & ranges) {
         exit(EXIT_FAILURE);
     }
 
-    // loop though the file and read in all the data into the vector grid.
-    // end when there is nothing to read.
     while (inFile.good()) {
         count++;
         // Define temp Vector
@@ -107,58 +141,4 @@ void Robot::readPosesData(vector<vector<double>> & poses) {
         cout << "No data was read" << endl;
     }
     inFile.close();
-}
-
-double Robot::CellIndexX(double x){
-    return round((x / 0.2) + GRID_OFF_SET );
-}
-
-double Robot::CellIndexY(double y){
-    return round((y / 0.2) + GRID_OFF_SET );
-}
-
-double Robot::XCoordinate (double x_r, double sensors_range, double senor_alpha, double senor_beta){
-
-    double absolute_x;
-    absolute_x = x_r + sensors_range * cos(convert_to_radians(senor_alpha + senor_beta));
-    return absolute_x;
-}
-
-double Robot::YCoordinate(double y_r, double sensors_range, double senor_alpha, double senor_beta){
-
-    double absolute_y;
-    absolute_y = y_r + sensors_range * sin(convert_to_radians(senor_alpha + senor_beta));
-    return absolute_y;
-}
-
-double Robot::convert_to_radians (double degrees){
-    return   degrees / RADS_TO_DEGREES;
-}
-
-const vector<vector<double>> & Robot::getPoses(){
-    return Robot::poses;
-}
-
-const vector<vector<double>> & Robot::getRanges() {
-    return Robot::ranges;
-}
-
-void Robot::setPoses(vector<vector<double>> & poses) {
-    poses = Robot::poses;
-}
-
-void Robot::setRanges(vector<vector<double>> &ranges) {
-    ranges = Robot::ranges;
-}
-
-// Used in Grid.cpp
-
-double Robot::getX(double currentGridX, int i, int j, double currentOrientation){
-    int x =  (int)CellIndexX(XCoordinate(currentGridX,ranges[i][j], j * 45, currentOrientation));
-    return x;
-}
-
-double Robot::getY(double currentGridX, int i, int j, double currentOrientation){
-    int  y = (int)CellIndexY(YCoordinate(currentGridX,ranges[i][j],j * 45, currentOrientation));
-    return y;
 }

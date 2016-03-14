@@ -22,22 +22,20 @@ public:
     const vector<vector<double>> &getPoses();
     void setPoses(vector<vector<double>> & poses);
     void setRanges(vector<vector<double>> &ranges);
-    double getX(double currentGridX, int i, int j, double currentOrientation);
-    double getY(double currentGridX, int i, int j, double currentOrientation);
+    static double getCellIndexY(double y);
+    static double getCellIndexX(double x);
+    static double getXCoordinate(double x_r, double sensors_range, double senor_alpha, double senor_beta);
+    static double getYCoordinate(double y_r, double senor_range, double senor_alpha, double senor_beta);
 
 
 private:
-    const double RADS_TO_DEGREES = 57.2958;
-    const double GRID_OFF_SET = 0.2;
+    static const double RADS_TO_DEGREES = 57.2958;
+    static const double GRID_OFF_SET = 0.2;
     std::vector<std::vector<double>> poses;
     std::vector<std::vector<double>> ranges;
-    double convert_to_radians(double degrees);
+    static double convert_to_radians(double degrees);
     void readPosesData(std::vector<std::vector<double>> &poses);
     void readRangeData(std::vector<std::vector<double>> &ranges);
-    double CellIndexY(double y);
-    double CellIndexX(double x);
-    double XCoordinate(double x_r, double sensors_range, double senor_alpha, double senor_beta);
-    double YCoordinate(double y_r, double senor_range, double senor_alpha, double senor_beta);
 };
 
 
