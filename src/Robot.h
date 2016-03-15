@@ -13,6 +13,8 @@ using std:: endl;
 using std::cin;
 using std::vector;
 using std::string;
+static const double RADS_TO_DEGREES = 57.2958;
+static const double GRID_OFF_SET = 0.2;
 class Robot {
 
 public:
@@ -22,18 +24,18 @@ public:
     const vector<vector<double>> &getPoses();
     void setPoses(vector<vector<double>> & poses);
     void setRanges(vector<vector<double>> &ranges);
-    static double getCellIndexY(double y);
-    static double getCellIndexX(double x);
-    static double getXCoordinate(double x_r, double sensors_range, double senor_alpha, double senor_beta);
-    static double getYCoordinate(double y_r, double senor_range, double senor_alpha, double senor_beta);
+    static int getCellIndexY(double y);
+    static int getCellIndexX(double x);
+    static int getXCoordinate(double x_r, double sensors_range, double senor_alpha, double senor_beta);
+    static int getYCoordinate(double y_r, double senor_range, double senor_alpha, double senor_beta);
+
 
 
 private:
-    static const double RADS_TO_DEGREES = 57.2958;
-    static const double GRID_OFF_SET = 0.2;
+
     std::vector<std::vector<double>> poses;
     std::vector<std::vector<double>> ranges;
-    static double convert_to_radians(double degrees);
+    double  convert_to_radians(double degrees);
     void readPosesData(std::vector<std::vector<double>> &poses);
     void readRangeData(std::vector<std::vector<double>> &ranges);
 };

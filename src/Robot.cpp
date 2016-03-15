@@ -17,29 +17,29 @@ Robot::~Robot() {
 
 }
 
-static double Robot::getCellIndexX(double x){
+ int Robot::getCellIndexX(double x){
     return round((x / 0.2) + GRID_OFF_SET );
 }
 
-static double Robot::getCellIndexY(double y){
+ int Robot::getCellIndexY(double y){
     return round((y / 0.2) + GRID_OFF_SET );
 }
 
-static double Robot::getXCoordinate (double x_r, double sensors_range, double senor_alpha, double senor_beta){
+ int  Robot::getXCoordinate (double x_r, double sensors_range, double senor_alpha, double senor_beta){
 
     double absolute_x;
     absolute_x = x_r + sensors_range * cos(convert_to_radians(senor_alpha + senor_beta));
     return absolute_x;
 }
 
-static double Robot::getYCoordinate(double y_r, double sensors_range, double senor_alpha, double senor_beta){
+ int  Robot::getYCoordinate(double y_r, double sensors_range, double senor_alpha, double senor_beta){
 
     double absolute_y;
     absolute_y = y_r + sensors_range * sin(convert_to_radians(senor_alpha + senor_beta));
     return absolute_y;
 }
 
-static double Robot::convert_to_radians (double degrees){
+ double Robot::convert_to_radians (double degrees){
     return   degrees / RADS_TO_DEGREES;
 }
 
