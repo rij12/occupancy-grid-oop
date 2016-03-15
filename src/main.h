@@ -5,14 +5,8 @@
 #ifndef OCCUPANCY_GRID_OOP_MAIN_H
 #define OCCUPANCY_GRID_OOP_MAIN_H
 
-#include <iostream>
-#include <fstream>
-#include <stdlib.h>
-#include <math.h>
-#include <vector>
-#include <Robot.h>
-#include <Grid.h>
-using namespace std;
+
+
 
 class main{
 

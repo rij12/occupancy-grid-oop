@@ -1,6 +1,8 @@
-//
-// Created by rich on 11/03/16.
-//
+/*
+ *
+ * @author Richard Price-Jones (rij12)
+ *
+ */
 
 
 #include <tgmath.h>
@@ -17,29 +19,29 @@ Robot::~Robot() {
 
 }
 
- int Robot::getCellIndexX(double x){
+double Robot::getCellIndexX(double x){
     return round((x / 0.2) + GRID_OFF_SET );
 }
 
- int Robot::getCellIndexY(double y){
+double Robot::getCellIndexY(double y){
     return round((y / 0.2) + GRID_OFF_SET );
 }
 
- int  Robot::getXCoordinate (double x_r, double sensors_range, double senor_alpha, double senor_beta){
+double Robot::getXCoordinate (double x_r, double sensors_range, double senor_alpha, double senor_beta){
 
     double absolute_x;
-    absolute_x = x_r + sensors_range * cos(convert_to_radians(senor_alpha + senor_beta));
+    absolute_x = x_r + sensors_range * cos(convertToRadians(senor_alpha + senor_beta));
     return absolute_x;
 }
 
- int  Robot::getYCoordinate(double y_r, double sensors_range, double senor_alpha, double senor_beta){
+double Robot::getYCoordinate(double y_r, double sensors_range, double senor_alpha, double senor_beta){
 
     double absolute_y;
-    absolute_y = y_r + sensors_range * sin(convert_to_radians(senor_alpha + senor_beta));
+    absolute_y = y_r + sensors_range * sin(convertToRadians(senor_alpha + senor_beta));
     return absolute_y;
 }
 
- double Robot::convert_to_radians (double degrees){
+ double Robot::convertToRadians (double degrees){
     return   degrees / RADS_TO_DEGREES;
 }
 
@@ -49,14 +51,6 @@ const vector<vector<double>> & Robot::getPoses(){
 
 const vector<vector<double>> & Robot::getRanges() {
     return Robot::ranges;
-}
-
-void Robot::setPoses(vector<vector<double>> & poses) {
-    poses = Robot::poses;
-}
-
-void Robot::setRanges(vector<vector<double>> &ranges) {
-    ranges = Robot::ranges;
 }
 
 void Robot::readRangeData(vector<vector<double> > & ranges) {
