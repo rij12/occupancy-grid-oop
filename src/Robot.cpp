@@ -1,5 +1,4 @@
 /*
- *
  * @author Richard Price-Jones (rij12)
  *
  */
@@ -27,18 +26,18 @@ double Robot::getCellIndexY(double y){
     return round((y / 0.2) + GRID_OFF_SET );
 }
 
-double Robot::getXCoordinate (double x_r, double sensors_range, double senor_alpha, double senor_beta){
+double Robot::getXCoordinate(double xPosition, double sensorValue, double sensorAlpha, double sensorBeta){
 
-    double absolute_x;
-    absolute_x = x_r + sensors_range * cos(convertToRadians(senor_alpha + senor_beta));
-    return absolute_x;
+    double absoluteX;
+    absoluteX = xPosition + sensorValue * cos(convertToRadians(sensorAlpha + sensorBeta));
+    return absoluteX;
 }
 
-double Robot::getYCoordinate(double y_r, double sensors_range, double senor_alpha, double senor_beta){
+double Robot::getYCoordinate(double yPosition, double sensorValue, double sensorAlpha, double sensorBeta){
 
-    double absolute_y;
-    absolute_y = y_r + sensors_range * sin(convertToRadians(senor_alpha + senor_beta));
-    return absolute_y;
+    double absoluteY;
+    absoluteY = yPosition + sensorValue * sin(convertToRadians(sensorAlpha + sensorBeta));
+    return absoluteY;
 }
 
  double Robot::convertToRadians (double degrees){
@@ -60,33 +59,35 @@ void Robot::readRangeData(vector<vector<double> > & ranges) {
     //File name
     string filename = "ranges_data.txt";
     double count = 0;
+    double temp;
     inFile.open(filename);
 
-    //Check if the file can be open
-
+    //Checks if the file can be open
     if (!inFile.is_open()) {
         cout << "file could not be opened " << filename << endl;
         cout << "Program terminating. " << endl;
         exit(EXIT_FAILURE);
     }
 
+    // While no errors occur keep reading in data until end of the file.
     while (inFile.good()) {
         count++;
-        // Define temp Vector
-        double temp;
 
-        //Fill inner Vector.
+
+        //Fill Outer Vector.
         for (int i = 0; i < 40; i++) {
             vector<double> tempVector;
+            //Fill inner Vector.
             for (int j = 0; j <= 7; j++) {
                 inFile >> temp;
                 tempVector.push_back(temp);
             }
 
-            // Now push back the temp vector into the main vector.
+            //Insert the temporary vector into outer vector ranges
             ranges.push_back(tempVector);
         }
     }
+    //Check if any data was read.
     if (count == 0) {
         cout << "No data was read" << endl;
     }
@@ -95,21 +96,15 @@ void Robot::readRangeData(vector<vector<double> > & ranges) {
 
 void Robot::readPosesData(vector<vector<double>> & poses) {
 
-
-    // First we need a file object
     std::ifstream inFile;
-    // file name
     string filename = "poses_data.txt";
-    // Temp data
-    double temp;
-    // DEBUGGING INFORMATION
-    double count = 0;
-    //Open the file
 
+    double temp;
+    double count = 0;
+    //Opens the file with given filename
     inFile.open(filename);
 
-    // Check if the file can be open
-
+    // Checks if the file can be open
     if (!inFile.is_open()) {
         cout << "file could not be opened " << filename << endl;
         cout << "Program terminating. " << endl;
@@ -117,7 +112,6 @@ void Robot::readPosesData(vector<vector<double>> & poses) {
     }
     while (inFile.good()) {
         count++;
-        // Get the value from the text file.
         // Loops though outer vector
         for (int i = 0; i < 40; i++) {
             vector<double> tempVector;
@@ -131,6 +125,7 @@ void Robot::readPosesData(vector<vector<double>> & poses) {
         }
         cout << "PoseData NO. " << count << endl;
     }
+    // Check if any data was read.
     if (count == 0) {
         cout << "No data was read" << endl;
     }

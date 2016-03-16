@@ -36,6 +36,8 @@ private:
     // Creates grid, loops though poses and ranges vectors, takes raw  positional and sensor data
     // into cell coordinates, if occupied sets corresponding cells to 1 (Empty Cell value = 0).
     // Every time occupied cell is found, printGrid() is called. To create animation effect when building grid.
+    // @param poses vector - see above.
+    // @param ranges vector - see above.
     void buildingGrid(std::vector<std::vector<double>> poses,
                       std::vector<std::vector<double>> ranges,
                       std::vector<std::vector<int>> & grid);
