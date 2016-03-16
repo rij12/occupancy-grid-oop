@@ -1,4 +1,6 @@
 
+//@author Richard Price-Jones (rij12)
+
 #include <vector>
 #include "Robot.h"
 #include "Grid.h"

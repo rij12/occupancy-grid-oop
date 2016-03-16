@@ -1,8 +1,5 @@
-/*
- * @author Richard Price-Jones (rij12)
- *
- */
 
+// @author Richard Price-Jones (rij12)
 
 #include <tgmath.h>
 #include <fstream>
@@ -44,22 +41,23 @@ double Robot::getYCoordinate(double yPosition, double sensorValue, double sensor
     return   degrees / RADS_TO_DEGREES;
 }
 
-const vector<vector<double>> & Robot::getPoses(){
+const std::vector<std::vector<double>> & Robot::getPoses(){
     return Robot::poses;
 }
 
-const vector<vector<double>> & Robot::getRanges() {
+const std::vector<std::vector<double>> & Robot::getRanges() {
     return Robot::ranges;
 }
 
-void Robot::readRangeData(vector<vector<double> > & ranges) {
+void Robot::readRangeData(std::vector<std::vector<double> > & ranges) {
 
     //First we need a file object
     std::ifstream inFile;
     //File name
-    string filename = "ranges_data.txt";
+    std::string filename = "ranges_data.txt";
     double count = 0;
     double temp;
+    // Opens the file with given filename
     inFile.open(filename);
 
     //Checks if the file can be open
@@ -73,35 +71,34 @@ void Robot::readRangeData(vector<vector<double> > & ranges) {
     while (inFile.good()) {
         count++;
 
-
         //Fill Outer Vector.
         for (int i = 0; i < 40; i++) {
-            vector<double> tempVector;
+            std::vector<double> tempVector;
             //Fill inner Vector.
             for (int j = 0; j <= 7; j++) {
                 inFile >> temp;
                 tempVector.push_back(temp);
             }
 
-            //Insert the temporary vector into outer vector ranges
+            // Insert the temporary vector into outer vector ranges
             ranges.push_back(tempVector);
         }
     }
-    //Check if any data was read.
+    // Check if any data was read.
     if (count == 0) {
         cout << "No data was read" << endl;
     }
     inFile.close();
 }
 
-void Robot::readPosesData(vector<vector<double>> & poses) {
+void Robot::readPosesData(std::vector<std::vector<double>> & poses) {
 
     std::ifstream inFile;
-    string filename = "poses_data.txt";
+    std::string filename = "poses_data.txt";
 
     double temp;
     double count = 0;
-    //Opens the file with given filename
+    // Opens the file with given filename
     inFile.open(filename);
 
     // Checks if the file can be open
@@ -114,13 +111,13 @@ void Robot::readPosesData(vector<vector<double>> & poses) {
         count++;
         // Loops though outer vector
         for (int i = 0; i < 40; i++) {
-            vector<double> tempVector;
+            std::vector<double> tempVector;
             // Loops though Inner vector
             for (int j = 0; j < 3; j++) {
                 inFile >> temp;
                 tempVector.push_back(temp);
             }
-            // Now push back the temp vector into the main vector.
+            // Insert the temporary vector into outer vector ranges
             poses.push_back(tempVector);
         }
         cout << "PoseData NO. " << count << endl;

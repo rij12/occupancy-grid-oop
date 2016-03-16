@@ -1,6 +1,5 @@
-//
-// Created by rich on 11/03/16.
-//
+
+// @author Richard Price-Jones (rij12)
 
 #ifndef OCCUPANCY_GRID_OOP_ROBOT_H
 #define OCCUPANCY_GRID_OOP_ROBOT_H
@@ -11,8 +10,6 @@
 using std::cout;
 using std::endl;
 using std::cin;
-using std::vector;
-using std::string;
 
 class Robot {
 
@@ -22,8 +19,8 @@ public:
     // De-Constructor
     ~Robot();
     // Accessor member functions.
-    const vector<vector<double>> &getRanges();
-    const vector<vector<double>> &getPoses();
+    const std::vector<std::vector<double>> &getRanges();
+    const std::vector<std::vector<double>> &getPoses();
 
     // Converts X coordinate into cell index.
     // @param double - x coordinate.

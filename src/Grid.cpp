@@ -1,8 +1,5 @@
-/*
- * ar
- *
- *
- */
+
+// @author Richard Price-Jones (rij12)
 
 #include "Grid.h"
 #include "Robot.h"
@@ -11,11 +8,9 @@
 Grid::Grid(){
     intialiseGrid(grid);
 }
-Grid::~Grid() {
+Grid::~Grid() {}
 
-}
-
-Grid::Grid(vector<vector<double>> poses, vector<vector<double >> ranges){
+Grid::Grid(std::vector<std::vector<double>> poses, std::vector<std::vector<double >> ranges){
     intialiseGrid(grid);
     buildingGrid(poses,ranges,grid);
     }
@@ -34,9 +29,9 @@ void Grid::printGrid(){
     }
 }
 
-void Grid::buildingGrid(vector<vector<double>> poses,
-                         vector<vector<double>> ranges,
-                         vector<vector<int>> & grid){
+void Grid::buildingGrid(std::vector<std::vector<double>> poses,
+                        std::vector<std::vector<double>> ranges,
+                        std::vector<std::vector<int>> & grid){
     const int X_INDEX = 0;
     const int Y_INDEX = 1;
     const int BETA_INDEX = 2;
@@ -54,9 +49,9 @@ void Grid::buildingGrid(vector<vector<double>> poses,
         currentGridY = poses[i][Y_INDEX];
         currentOrientation = poses[i][BETA_INDEX];
 
+        // Checks sensor data, and calculates if a cell is occupied.
         for(int j =0; j <= 7; j++){
             if (ranges[i][j] < MAX_RANGE_OF_SENORS){
-
                 x = (int)Robot::getCellIndexX(Robot::getXCoordinate(currentGridX,ranges[i][j], j * DEGREE_MULTIPLIER,
                                                                     currentOrientation));
             }
@@ -64,17 +59,19 @@ void Grid::buildingGrid(vector<vector<double>> poses,
                 y = (int)Robot::getCellIndexY(Robot::getYCoordinate(currentGridY,ranges[i][j], j * DEGREE_MULTIPLIER,
                                                                     currentOrientation));
             }
+            // Set cell to occupied.
             grid[x][y] = 1;
         }
+        // Print grid, and then wait, to create an animation effect.
         Grid::printGrid();
         Sleep(3000);
     }
 }
 
-void Grid::intialiseGrid(vector<vector<int>> &grid){
+void Grid::intialiseGrid(std::vector<std::vector<int>> &grid){
 
     for (int i = 0; i < GRID_WIDTH; i++){
-        vector<int> gridData;
+        std::vector<int> gridData;
         for (int j = 0; j < GRID_WIDTH; j++){
             gridData.push_back(0);
         }
