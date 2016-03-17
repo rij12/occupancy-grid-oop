@@ -51,18 +51,18 @@ const std::vector<std::vector<double>> & Robot::getRanges() {
 
 void Robot::readRangeData(std::vector<std::vector<double> > & ranges) {
 
-    //First we need a file object
+
     std::ifstream inFile;
-    //File name
     std::string filename = "ranges_data.txt";
+
     double count = 0;
     double temp;
-    // Opens the file with given filename
+
     inFile.open(filename);
 
     //Checks if the file can be open
     if (!inFile.is_open()) {
-        cout << "file could not be opened " << filename << endl;
+        cout << "file could not be opened, ensure that text files are named correctly" << filename << endl;
         cout << "Program terminating. " << endl;
         exit(EXIT_FAILURE);
     }

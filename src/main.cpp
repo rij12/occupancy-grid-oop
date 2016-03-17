@@ -8,8 +8,8 @@
 
 int main() {
 
-    Robot myRobot;
-    Grid grid(myRobot.getPoses(), myRobot.getRanges());
+    Robot robot;
+    Grid (robot.getPoses(), robot.getRanges());
 
     return 0;
 }

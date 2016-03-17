@@ -3,7 +3,9 @@
 
 #include "Grid.h"
 #include "Robot.h"
+// Used for the timer WINDOWS ONLY.
 #include <windows.h>
+
 
 Grid::Grid(){
     intialiseGrid(grid);
@@ -17,15 +19,15 @@ Grid::Grid(std::vector<std::vector<double>> poses, std::vector<std::vector<doubl
 
 void Grid::printGrid(){
 
-    for (int y = 49; y >= 0 ; y--) {
-        for (int x = 0; x <= 49; x++) {
+    for (int y = 49; y > 0 ; y--) {
+        for (int x = 0; x < 49; x++) {
         if(grid[x][y] == 1) {
           cout << "*";
         }else{
           cout << " ";
             }
         }
-            cout << endl;
+        cout << endl;
     }
 }
 
@@ -64,7 +66,7 @@ void Grid::buildingGrid(std::vector<std::vector<double>> poses,
         }
         // Print grid, and then wait, to create an animation effect.
         Grid::printGrid();
-        Sleep(3000);
+        Sleep(2000);
     }
 }
 

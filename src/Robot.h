@@ -66,6 +66,7 @@ private:
     // Grid starts at -0.2, this is used to revert that offset
     // for easier calculation when convert coordinates to cell indexes.
     static constexpr  double GRID_OFF_SET = 0.2;
+
 };
 
 #endif //OCCUPANCY_GRID_OOP_ROBOT_H
